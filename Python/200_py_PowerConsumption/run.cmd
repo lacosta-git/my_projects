@@ -1,0 +1,2 @@
+python pyReadData.py
+pause

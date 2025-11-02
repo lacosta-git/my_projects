@@ -1,0 +1,94 @@
+/************************************************
+ copyright (c) 2006                            
+Title:             RF01 simple example based on A
+Current version:   v1.0 
+Function:          Package Receive Demo 
+processor          ATMEGA48 
+Clock:             10MHz Crystal 
+Operate frequency: 434MHz 
+Data rate:         4.8kbps 
+Package size:      23byte 
+Author:            Tank 
+Company:           Hope microelectronic Co.,Ltd. 
+Contact:           +86-0755-86106557 
+E-MAIL:            hopefsk@hoperf.com   
+Date:              2006-10-24  
+                 
+                Connections 
+                 
+      ATMEGA48 SIDE       RF01 SIDE    
+        SCK--------------->SCK       
+       MISO<---------------SDO 
+       MOSI--------------->SDI 
+         SS--------------->nSEL          
+                           DATA:Pull up to VDD   
+       INT0<---------------nIRQ   
+        
+       PC0~PC3: LED0~LED3 
+ 
+*************************************************
+#include <mega48.h>      
+ 
+#define DDR_IN          0 
+#define DDR_OUT         1 
+ 
+#define PORT_SEL        PORTB 
+#define PIN_SEL         PINB  
+#define DDR_SEL         DDRB  
+ 
+#define PORT_SDI        PORTB 
+#define PIN_SDI         PINB    
+#define DDR_SDI         DDRB 
+ 
+#define PORT_SCK        PORTB 
+#define PIN_SCK         PINB   
+#define DDR_SCK         DDRB 
+ 
+#define PORT_SDO        PORTB 
+#define PIN_SDO         PINB 
+#define DDR_SDO         DDRB  
+ 
+#define PORT_LED        PORTC 
+#define DDR_LED         DDRC 
+  
+#define PB7             7//--\ 
+#define PB6             6//  | 
+#define RFXX_SCK        5//  | 
+#define RFXX_SDO        4//  |RF_PORT 
+#define RFXX_SDI        3//  | 
+#define RFXX_SEL        2//  | 
+#define RFXX_DATA       1//  | 
+#define PB0             0//--/  
+ 
+#define SEL_OUTPUT()    DDR_SEL |= (1<<RFXX_SEL) 
+#define HI_SEL()        PORT_SEL|= (1<<RFXX_SEL) 
+#define LOW_SEL()       PORT_SEL&=~(1<<RFXX_SEL) 
+ 
+#define SDI_OUTPUT()    DDR_SDI |= (1<<RFXX_SDI) 
+#define HI_SDI()        PORT_SDI|= (1<<RFXX_SDI) 
+#define LOW_SDI()       PORT_SDI&=~(1<<RFXX_SDI
+ 
+#define SDO_INPUT()     DDR_SDO&= ~(1<<RFXX_SDO
+#define SDO_HI()        PIN_SDO&(1<<RFXX_SDO) 
+ 
+#define SCK_OUTPUT()    DDR_SCK |= (1<<RFXX_SCK
+#define HI_SCK()        PORT_SCK|= (1<<RFXX_SCK
+#define LOW_SCK()       PORT_SCK&=~(1<<RFXX_SCK
+ 
+#define LED_OUTPUT()    DDR_LED |=0x0F 
+#define LED0_ON()       PORT_LED&=~(1<<0) 
+#define LED0_OFF()      PORT_LED|= (1<<0)  
+#define LED0_TRG()      PORT_LED^= (1<<0) 
+ 
+#define LED1_ON()       PORT_LED&=~(1<<1) 
+#define LED1_OFF()      PORT_LED|= (1<<1) 
+#define LED1_TRG()      PORT_LED^= (1<<1) 
+ 
+#define LED2_ON()       PORT_LED&=~(1<<2) 
+#define LED2_OFF()      PORT_LED|= (1<<2)  
+#define LED2_TRG()      PORT_LED^= (1<<2) 
+ 
+#define LED3_ON()       PORT_LED&=~(1<<3) 
+#define LED3_OFF()      PORT_LED|= (1<<3) 
+#define LED3_TRG()      PORT_LED^= (1<<3) 
+
